@@ -1,15 +1,38 @@
 <div>
+    @if ($server_message != '')
+    <div class="max-w-lg mx-auto pt-7">
+        <div class="flex bg-yellow-100 rounded-lg p-4 mb-4 text-sm text-yellow-700" role="alert">
+            <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+            <div>
+                <span class="font-medium">{{ $server_message }}
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="pt-12 pb-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <input wire:model.debounce.5000ms='q' wire:keydown.enter='search' type="search" placeholder="search for a movie" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent">
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div wire:loading class="max-w-lg mx-auto pt-7">
+            <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700" role="alert">
+                <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <div>
+                    <span class="font-medium">Processing...
                 </div>
             </div>
         </div>
     </div>
 
-    @if ($movie)
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <input wire:model.debounce.5000ms='q' wire:keydown.enter='search' type="search" placeholder="search for a movie" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    @if ($movie && isset($movie['Title']))
     <div class="pt-12 pb-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="max-w-sm w-full lg:max-w-full lg:flex">
@@ -46,6 +69,7 @@
                         </div>
                         <img class="absolute inset-0 transform w-full -translate-y-4" src="{{ $movie['Poster'] }}" style="filter: grayscale(0);" />
                         <div class="poster__footer flex flex-row relative pb-10 space-x-4 z-10 pt-10">
+                            @if($favorited)
                             <a
                                 class="flex items-center py-2 px-4 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700"
                                 href="javascript:;"
@@ -53,8 +77,20 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
+                                <div class="text-sm text-white ml-2">Favorite</div>
+                            </a>
+                            @else
+                            <a
+                                class="flex items-center py-2 px-4 rounded-full mx-auto text-white bg-gray-500 hover:bg-gray-700"
+                                href="javascript:;"
+                                wire:click='favorite("{{ $movie['imdbID'] }}")'
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
                                 <div class="text-sm text-white ml-2">Add to Favorites</div>
                             </a>
+                            @endif
                         </div>
                     </div>
 
@@ -85,7 +121,7 @@
                         <li><strong>Actors:</strong> {{ $movie['Actors'] }}</li>
                         <li><strong>Language:</strong> {{ $movie['Language'] }}</li>
                         <li><strong>Country:</strong> {{ $movie['Country'] }}</li>
-                        <li><strong>Production:</strong> {{ $movie['Production'] }}</li>
+                        <li><strong>Production:</strong> {{ isset($movie['Production']) ? $movie['Production'] : 'N/A' }}</li>
                       </ul>
                   </div>
 
@@ -104,10 +140,15 @@
               </div>
         </div>
     </div>
+    @else
+    <div class="pt-12 pb-6">
+        <div class="rounded overflow-hidden shadow-lg">
 
-
-
-
+            <div class="px-6 pt-4 pb-2">
+                <h2>NO Movies found </h2>
+            </div>
+          </div>
+    </div>
     @endif
 
 
