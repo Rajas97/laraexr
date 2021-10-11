@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fdd870f0b8814318a98b0cc0ff81318",
+    "content-hash": "904bfdb9a89542c66d8975533b6b7599",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5762,6 +5762,10 @@
                 "docker",
                 "laravel"
             ],
+            "support": {
+                "issues": "https://github.com/laravel/sail/issues",
+                "source": "https://github.com/laravel/sail"
+            },
             "time": "2021-10-01T13:32:17+00:00"
         },
         {
@@ -7635,5 +7639,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
