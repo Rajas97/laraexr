@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'mid', 'movie_data'
+    ];
+
+    protected $casts = [
+        'movie_data'    => 'json',
+    ];
 }
