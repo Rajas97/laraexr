@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/dashboard/favorite/movies', function () {
+    return view('favorites');
+})->middleware(['auth'])->name('dashboard.favorite.movies');
+
 require __DIR__.'/auth.php';
