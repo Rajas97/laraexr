@@ -13,10 +13,10 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Scripts -->
+        <!-- Scripts --->
         <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireStyles
-        @method('styles')
+        @stack('styles')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -34,7 +34,8 @@
                 {{ $slot }}
             </main>
         </div>
+
         @livewireScripts
-        @method('scripts')
+        @stack('scripts')
     </body>
 </html>
