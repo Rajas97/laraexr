@@ -8,9 +8,9 @@ use Livewire\Component;
 
 class Search extends Component
 {
-    public $q       = '';
+    public $q           = '';
     public $movie;
-    public $favorited = false;
+    public $favorited   = false;
     public $favorites_ids;
     public $server_message = '';
     public function boot()
