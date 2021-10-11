@@ -8,7 +8,7 @@ use Livewire\Component;
 class Search extends Component
 {
     public $q       = '';
-    public $movies;
+    public $movie;
     public function boot()
     {
         $this->searchService();
@@ -26,7 +26,7 @@ class Search extends Component
             $response = Http::get(config('movies.url')."&t=".trim($this->q));
             if($response->successful())
             {
-                $this->movies   =  $response->json();
+                $this->movie   =  $response->json();
             }
         }
     }
